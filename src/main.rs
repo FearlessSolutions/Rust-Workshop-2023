@@ -1,34 +1,12 @@
-use clap::{Args, Parser, Subcommand};
+use clap::{Parser};
+
+mod command;
+mod get_outline_connection;
 
 fn main() {
-    let my_object = GetOutline::parse();
+    let my_object = command::GetOutline::parse();
 
-    if let Subcommands::SayHello(args) = &my_object.subcommand {
-        if let Some(name) = &args.name {
-            println!("Hello, {}!", name);
-        } else {
-            println!("Hello, world!");
-        }
+    match &my_object.subcommand {
+        command::Subcommands::SayHello( args ) => command::SayHello( args )
     }
-}
-
-/// The GetOutline CLI can list and download documents from Outline
-#[derive(Parser)]
-#[command(author, version, about, long_about)]
-struct GetOutline {
-    #[command(subcommand)]
-    subcommand: Subcommands,
-}
-
-#[derive(Subcommand)]
-enum Subcommands {
-    /// Print a greeting. We're a polite CLI!
-    SayHello(SayHelloArgs),
-}
-
-#[derive(Args)]
-struct SayHelloArgs {
-    /// The name of the person to greet.
-    #[arg(long)]
-    name: Option<String>,
 }
