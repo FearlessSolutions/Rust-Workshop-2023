@@ -4,6 +4,7 @@ use dotenvy::dotenv;
 
 mod command;
 mod get_outline_connection;
+mod logic;
 
 fn main() {
     if dotenv().is_err() {
